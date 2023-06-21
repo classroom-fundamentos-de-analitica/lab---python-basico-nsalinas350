@@ -45,7 +45,16 @@ def pregunta_02():
     ]
 
     """
-    return
+    registros = {}
+
+    with open("data.csv", "r") as file:
+        for line in file:
+            letter = line.strip().split("\t")[0]
+            registros[letter] = registros.get(letter, 0) + 1
+
+    lista_tuplas = sorted(registros.items())
+
+    return lista_tuplas
 
 
 def pregunta_03():
@@ -63,6 +72,18 @@ def pregunta_03():
     ]
 
     """
+    suma_letras = {}
+
+    with open("data.csv", "r") as file:
+        for line in file:
+            fields = line.strip().split("\t")
+            letter = fields[0]
+            value = int(fields[1])
+            suma_letras[letter] = suma_letras.get(letter, 0) + value
+
+    lista_tuplas = sorted(suma_letras.items())
+
+    return lista_tuplas
     return
 
 
