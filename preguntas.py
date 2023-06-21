@@ -127,7 +127,23 @@ def pregunta_05():
     ]
 
     """
-    return
+    max_min_letras = {}
+
+    with open("data.csv", "r") as file:
+        for line in file:
+            fields = line.strip().split("\t")
+            letter = fields[0]
+            value = int(fields[1])
+
+            if letter in max_min_letras:
+                max_val, min_val = max_min_letras[letter]
+                max_min_letras[letter] = (max(max_val, value), min(min_val, value))
+            else:
+                max_min_letras[letter] = (value, value)
+
+    lista_tuplas = sorted(max_min_letras.items())
+
+    return lista_tuplas
 
 
 def pregunta_06():
@@ -152,6 +168,38 @@ def pregunta_06():
     ]
 
     """
+    def obtener_valores_extremos():
+    valores_max = {}
+    valores_min = {}
+
+    with open("data.csv", "r") as file:
+        for line in file:
+            fields = line.strip().split("\t")
+            encoded_dict = fields[4]
+
+            pairs = encoded_dict.split(",")
+            for pair in pairs:
+                key, value = pair.split(":")
+                value = int(value)
+
+                if key in valores_max:
+                    valores_max[key] = max(valores_max[key], value)
+                else:
+                    valores_max[key] = value
+
+                if key in valores_min:
+                    valores_min[key] = min(valores_min[key], value)
+                else:
+                    valores_min[key] = value
+
+    lista_tuplas = []
+    for key in sorted(valores_max.keys()):
+        max_value = valores_max[key]
+        min_value = valores_min[key]
+        lista_tuplas.append((key, min_value, max_value))
+
+    return lista_tuplas
+
     return
 
 
