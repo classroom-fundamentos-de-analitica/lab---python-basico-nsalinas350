@@ -431,7 +431,7 @@ def pregunta_12():
     }
 
     """
-        diccionario_suma = {}
+    diccionario_suma = {}
 
     with open("data.csv", "r") as file:
         for line in file:
