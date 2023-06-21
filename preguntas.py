@@ -14,6 +14,12 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 def pregunta_01():
+    total = 0
+    with open("data.csv", "r") as file:
+        for line in file:
+            fields = line.strip().split("\t")
+            value = int(fields[1])
+            total += value
     """
     Retorne la suma de la segunda columna.
 
