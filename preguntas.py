@@ -242,7 +242,24 @@ def pregunta_07():
     ]
 
     """
-    return
+    asociaciones = {}
+
+    with open("data.csv", "r") as file:
+        for line in file:
+            fields = line.strip().split("\t")
+            value = int(fields[1])
+            letter = fields[0]
+
+            if value in asociaciones:
+                asociaciones[value].append(letter)
+            else:
+                asociaciones[value] = [letter]
+
+    lista_tuplas = []
+    for value, letters in sorted(asociaciones.items()):
+        lista_tuplas.append((value, letters))
+
+    return lista_tuplas
 
 
 def pregunta_08():
@@ -267,31 +284,64 @@ def pregunta_08():
     ]
 
     """
-    return
+    valores_letras = {}
+
+    with open("data.csv", "r") as file:
+        for line in file:
+            fields = line.strip().split("\t")
+            value = int(fields[1])
+            letter = fields[0]
+
+            if value in valores_letras:
+                if letter not in valores_letras[value]:
+                    valores_letras[value].append(letter)
+            else:
+                valores_letras[value] = [letter]
+
+    lista_tuplas = []
+    for value, letters in sorted(valores_letras.items()):
+        lista_tuplas.append((value, sorted(letters)))
+
+    return lista_tuplas
 
 
 def pregunta_09():
     """
-    Retorne un diccionario que contenga la cantidad de registros en que aparece cada
-    clave de la columna 5.
-
-    Rta/
-    {
-        "aaa": 13,
-        "bbb": 16,
-        "ccc": 23,
-        "ddd": 23,
-        "eee": 15,
-        "fff": 20,
-        "ggg": 13,
-        "hhh": 16,
-        "iii": 18,
-        "jjj": 18,
-    }
+        Retorne un diccionario que contenga la cantidad de registros en que aparece cada
+        clave de la columna 5.
+    
+        Rta/
+        {
+            "aaa": 13,
+            "bbb": 16,
+            "ccc": 23,
+            "ddd": 23,
+            "eee": 15,
+            "fff": 20,
+            "ggg": 13,
+            "hhh": 16,
+            "iii": 18,
+            "jjj": 18,
+        }
 
     """
-    return
+    registros_por_clave = {}
 
+    with open("data.csv", "r") as file:
+        for line in file:
+            fields = line.strip().split("\t")
+            column5 = fields[4]
+
+            pairs = column5.split(",")
+            for pair in pairs:
+                key, _ = pair.split(":")
+                if key in registros_por_clave:
+                    registros_por_clave[key] += 1
+                else:
+                    registros_por_clave[key] = 1
+
+    return registros_por_clave
+    
 
 def pregunta_10():
     """
@@ -311,7 +361,21 @@ def pregunta_10():
 
 
     """
-    return
+    lista_tuplas = []
+
+    with open("data.csv", "r") as file:
+        for line in file:
+            fields = line.strip().split("\t")
+            letter = fields[0]
+            column4 = fields[3]
+            column5 = fields[4]
+
+            elements_column4 = len(column4.split(","))
+            elements_column5 = len(column5.split(","))
+
+            lista_tuplas.append((letter, elements_column4, elements_column5))
+
+    return lista_tuplas
 
 
 def pregunta_11():
@@ -332,7 +396,24 @@ def pregunta_11():
 
 
     """
-    return
+    suma_por_letra = {}
+
+    with open("data.csv", "r") as file:
+        for line in file:
+            fields = line.strip().split("\t")
+            letter_column4 = fields[3]
+            value_column2 = int(fields[1])
+
+            letters = letter_column4.split(",")
+            for letter in letters:
+                if letter in suma_por_letra:
+                    suma_por_letra[letter] += value_column2
+                else:
+                    suma_por_letra[letter] = value_column2
+
+    suma_por_letra_ordenada = {k: v for k, v in sorted(suma_por_letra.items())}
+
+    return suma_por_letra_ordenada
 
 
 def pregunta_12():
@@ -350,4 +431,22 @@ def pregunta_12():
     }
 
     """
-    return
+        diccionario_suma = {}
+
+    with open("data.csv", "r") as file:
+        for line in file:
+            fields = line.strip().split("\t")
+            letter_column1 = fields[0]
+            column5 = fields[4]
+
+            pairs = column5.split(",")
+            for pair in pairs:
+                _, value = pair.split(":")
+                value = int(value)
+
+                if letter_column1 in diccionario_suma:
+                    diccionario_suma[letter_column1] += value
+                else:
+                    diccionario_suma[letter_column1] = value
+
+    return diccionario_suma
