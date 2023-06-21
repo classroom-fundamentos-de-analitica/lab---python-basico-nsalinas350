@@ -168,7 +168,6 @@ def pregunta_06():
     ]
 
     """
-    def obtener_valores_extremos():
     valores_max = {}
     valores_min = {}
 
@@ -199,8 +198,6 @@ def pregunta_06():
         lista_tuplas.append((key, min_value, max_value))
 
     return lista_tuplas
-
-    return
 
 
 def pregunta_07():
