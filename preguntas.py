@@ -109,7 +109,25 @@ def pregunta_04():
     ]
 
     """
-    return
+    registros_por_mes = {}
+
+    with open("data.csv", "r") as file:
+        for line in file:
+            fields = line.strip().split("\t")
+            date = fields[2]
+            month = date.split("-")[1]
+
+            if month in registros_por_mes:
+                registros_por_mes[month] += 1
+            else:
+                registros_por_mes[month] = 1
+
+    lista_tuplas = []
+    for month in sorted(registros_por_mes.keys()):
+        count = registros_por_mes[month]
+        lista_tuplas.append((month, count))
+
+    return lista_tuplas
 
 
 def pregunta_05():
